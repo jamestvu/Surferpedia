@@ -69,3 +69,10 @@ body {
   height: 400px;
   width: auto;
 }
+
+.cjhobgood {
+  background: url("../images/cjhobgood.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+}

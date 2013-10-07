@@ -8,6 +8,7 @@ GET     /eddie                      controllers.Application.eddie()
 GET     /daize                      controllers.Application.daize()
 GET     /john                      controllers.Application.john()
 GET     /malia                      controllers.Application.malia()
+GET     /cjhobgood                      controllers.Application.cjhobgood()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
