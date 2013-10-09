@@ -8,6 +8,7 @@ import views.html.Daize;
 import views.html.John;
 import views.html.Malia;
 import views.html.cjhobgood;
+import views.html.Slater;
 
 /**
  * Implements the controllers for this application.
@@ -64,6 +65,15 @@ public class Application extends Controller {
    */
   public static Result cjhobgood() {
     return ok(cjhobgood.render("CJ Hobgood"));
+    
+  }
+  
+  /**
+   * Returns page1, a simple example of a second page to illustrate navigation.
+   * @return The Page1.
+   */
+  public static Result slater() {
+    return ok(Slater.render("Kelly Slater"));
     
   }
 }

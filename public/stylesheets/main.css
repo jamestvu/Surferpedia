@@ -76,3 +76,18 @@ body {
   background-position: center;
   height: 400px;
 }
+
+.slater {
+  background: url("../images/kellyslater.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  width: auto;
+}
+
+.carousel-5 {
+   background: url("../images/kellyslater.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+}
