@@ -7,7 +7,7 @@ import views.html.Eddie;
 import views.html.Daize;
 import views.html.John;
 import views.html.Malia;
-import views.html.cjhobgood;
+import views.html.Cjhobgood;
 import views.html.Slater;
 
 /**
@@ -64,7 +64,7 @@ public class Application extends Controller {
    * @return The Page1.
    */
   public static Result cjhobgood() {
-    return ok(cjhobgood.render("CJ Hobgood"));
+    return ok(Cjhobgood.render("CJ Hobgood"));
     
   }
   
