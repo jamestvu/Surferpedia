@@ -1,14 +1,14 @@
 package controllers;
 
+import models.SurferDB;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.formdata.SurferFormData;
+import views.formdata.SurferTypes;
 import views.html.Index;
-import views.html.Eddie;
-import views.html.Daize;
-import views.html.John;
-import views.html.Malia;
-import views.html.Cjhobgood;
-import views.html.Slater;
+import views.html.ManageSurfer;
+
 
 /**
  * Implements the controllers for this application.
@@ -20,60 +20,64 @@ public class Application extends Controller {
    * @return The resulting home page. 
    */
   public static Result index() {
-    return ok(Index.render("Welcome to the home page."));
+    return ok(Index.render(SurferDB.getSurfers()));
   }
   
   /**
    * Returns page1, a simple example of a second page to illustrate navigation.
-   * @return The Page1.
+   * @return The manage surfer page.
    */
-  public static Result eddie() {
-    return ok(Eddie.render("Eddie Aikau"));
+  public static Result newSurfer() {
+    SurferFormData data = new SurferFormData();
+    Form<SurferFormData> formData = Form.form(SurferFormData.class).fill(data);
+    return ok(ManageSurfer.render(formData, SurferTypes.getTypes()));
+    
+  }
+  
+  /**
+   * Returns the page containing the surfer info.
+   * @param slug The slug used to retrieve the surfer.
+   * @return The manage surfer page.
+   */
+  public static Result getSurfer(String slug) {
+    return ok(Index.render(SurferDB.getSurfers()));
+    
+  }
+  
+  /**
+   * Returns the index page.
+   * @param slug The slug used to retrieve the surfer.
+   * @return The indexed surfer page.
+   */
+  public static Result deleteSurfer(String slug) {
+    return ok(Index.render(SurferDB.getSurfers()));
     
   }
   
   /**
    * Returns page1, a simple example of a second page to illustrate navigation.
-   * @return The Page1.
+   * @param slug The slug used to retrieve the surfer.
+   * @return The manage surfer page.
    */
-  public static Result john() {
-    return ok(John.render("Eddie Aikau"));
-    
+  public static Result manageSurfer(String slug) {
+    return ok(Index.render(SurferDB.getSurfers()));
   }
   
   /**
-   * Returns page1, a simple example of a second page to illustrate navigation.
-   * @return The Page1.
+   * Returns the index page.
+   * @return The manage surfer page.
    */
-  public static Result daize() {
-    return ok(Daize.render("Eddie Aikau"));
+  public static Result postSurfer() {
+    Form<SurferFormData> formData = Form.form(SurferFormData.class).bindFromRequest();
     
-  }
-  
-  /**
-   * Returns page1, a simple example of a second page to illustrate navigation.
-   * @return The Page1.
-   */
-  public static Result malia() {
-    return ok(Malia.render("Eddie Aikau"));
-    
-  }
-  
-  /**
-   * Returns page1, a simple example of a second page to illustrate navigation.
-   * @return The Page1.
-   */
-  public static Result cjhobgood() {
-    return ok(Cjhobgood.render("CJ Hobgood"));
-    
-  }
-  
-  /**
-   * Returns page1, a simple example of a second page to illustrate navigation.
-   * @return The Page1.
-   */
-  public static Result slater() {
-    return ok(Slater.render("Kelly Slater"));
+    if (formData.hasErrors()) {
+      return badRequest(ManageSurfer.render(formData, SurferTypes.getTypes()));
+    }
+    else {
+      SurferFormData data = formData.get();
+      SurferDB.addSurfer(data);
+      return ok(ManageSurfer.render(formData, SurferTypes.getTypes()));
+    }
     
   }
 }
