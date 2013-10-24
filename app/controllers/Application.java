@@ -6,11 +6,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.formdata.SurferFormData;
 import views.formdata.SurferTypes;
-import views.html.Eddie;
 import views.html.Index;
 import views.html.ManageSurfer;
 import views.html.ShowSurfer;
-import views.html.Main;
 
 
 /**
@@ -23,7 +21,7 @@ public class Application extends Controller {
    * @return The resulting home page. 
    */
   public static Result index() {
-    //Main.render(arg0, arg1)
+    
     return ok(Index.render(SurferDB.getSurfers()));
   }
   
@@ -34,7 +32,7 @@ public class Application extends Controller {
   public static Result newSurfer() {
     SurferFormData data = new SurferFormData();
     Form<SurferFormData> formData = Form.form(SurferFormData.class).fill(data);
-    return ok(ManageSurfer.render(formData, SurferTypes.getTypes()));
+    return ok(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers()));
     
   }
   
@@ -44,16 +42,17 @@ public class Application extends Controller {
    * @return The manage surfer page.
    */
   public static Result getSurfer(String slug) {
-    return ok(ShowSurfer.render(SurferDB.getSurfer(slug)));
+    return ok(ShowSurfer.render(SurferDB.getSurfer(slug), SurferDB.getSurfers()));
     
   }
   
   /**
-   * Returns the index page.
+   * Returns the index page and deletes the surfer with the given slug.
    * @param slug The slug used to retrieve the surfer.
    * @return The indexed surfer page.
    */
   public static Result deleteSurfer(String slug) {
+    SurferDB.deleteSurfer(slug);
     return ok(Index.render(SurferDB.getSurfers()));
     
   }
@@ -64,16 +63,9 @@ public class Application extends Controller {
    * @return The manage surfer page.
    */
   public static Result manageSurfer(String slug) {
-    return ok(Index.render(SurferDB.getSurfers()));
-  }
-  
-  /**
-   * Returns page1, a simple example of a second page to illustrate navigation.
-   * @param slug The slug used to retrieve the surfer.
-   * @return The manage surfer page.
-   */
-  public static Result eddie() {
-    return ok(Eddie.render("eddie"));
+    SurferFormData data = new SurferFormData(SurferDB.getSurfer(slug));
+    Form<SurferFormData> formData = Form.form(SurferFormData.class).fill(data);
+    return ok(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers()));
   }
   
   /**
@@ -84,12 +76,12 @@ public class Application extends Controller {
     Form<SurferFormData> formData = Form.form(SurferFormData.class).bindFromRequest();
     
     if (formData.hasErrors()) {
-      return badRequest(ManageSurfer.render(formData, SurferTypes.getTypes()));
+      return badRequest(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers()));
     }
     else {
       SurferFormData data = formData.get();
       SurferDB.addSurfer(data);
-      return ok(ManageSurfer.render(formData, SurferTypes.getTypes()));
+      return ok(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers()));
     }
     
   }
