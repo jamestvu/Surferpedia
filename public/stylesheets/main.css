@@ -2,6 +2,14 @@ body {
   
 }
 
+.surferBioPic {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 400px;
+  width: auto;
+}
+
 .carousel-1 {
   background: url("../images/eddie.jpg");
   background-size: cover;

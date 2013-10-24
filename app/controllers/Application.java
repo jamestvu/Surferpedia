@@ -10,6 +10,7 @@ import views.html.Eddie;
 import views.html.Index;
 import views.html.ManageSurfer;
 import views.html.ShowSurfer;
+import views.html.Main;
 
 
 /**
@@ -22,11 +23,12 @@ public class Application extends Controller {
    * @return The resulting home page. 
    */
   public static Result index() {
+    //Main.render(arg0, arg1)
     return ok(Index.render(SurferDB.getSurfers()));
   }
   
   /**
-   * Returns page1, a simple example of a second page to illustrate navigation.
+   * Returns the manage surfer page.
    * @return The manage surfer page.
    */
   public static Result newSurfer() {
@@ -42,7 +44,7 @@ public class Application extends Controller {
    * @return The manage surfer page.
    */
   public static Result getSurfer(String slug) {
-    return ok(Index.render(SurferDB.getSurfers()));
+    return ok(ShowSurfer.render(SurferDB.getSurfer(slug)));
     
   }
   
@@ -72,15 +74,6 @@ public class Application extends Controller {
    */
   public static Result eddie() {
     return ok(Eddie.render("eddie"));
-  }
-  
-  /**
-   * Returns page1, a simple example of a second page to illustrate navigation.
-   * @param slug The slug used to retrieve the surfer.
-   * @return The manage surfer page.
-   */
-  public static Result showSurfer() {
-    return ok(ShowSurfer.render("eddie"));
   }
   
   /**

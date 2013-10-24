@@ -37,8 +37,33 @@ public class SurferFormData {
   public SurferFormData() {
     
   }
+  
   /**
-   * Creates a Cfd based a contact object.
+   * Creates a Surfer form data from 8 parameters.
+   * @param name The surfer name.
+   * @param home The surfer's home.
+   * @param awards The list of awards.
+   * @param carouselURL The image to be used for the carousel.
+   * @param bioURL The image to be used for the bio page.
+   * @param bio The bio narrative.
+   * @param slug The surfer slug.
+   * @param type The surfer type.
+   */
+  public SurferFormData(String name, String home, String awards, String carouselURL, String bioURL,
+      String bio, String slug, String type) {
+    this.name = name;
+    this.home = home;
+    this.awards = awards;
+    this.carouselURL = carouselURL;
+    this.bioURL = bioURL;
+    this.bio = bio;
+    this.slug = slug;
+    this.type = type;
+
+  }
+  
+  /**
+   * Creates a Surfer Form Data object based a surfer object.
    * @param formData
    * @param formData the form data.
    */
@@ -51,7 +76,6 @@ public class SurferFormData {
     this.bio = formData.getBio();
     this.slug = formData.getSlug();
     this.type = formData.getType();
-    System.out.println("2surfer slug set:"+slug+":");
   }
   /**
    * Checks that form fields are valid. Called by bindFormRequest().
@@ -60,23 +84,23 @@ public class SurferFormData {
   public List<ValidationError> validate()  {
     List<ValidationError> errors = new ArrayList<>();
     
-    if (name == null || name.length() == 0) {
+    if (name.isEmpty()) {
       errors.add(new ValidationError("name", "Name is required."));
     }
     
-    if (home == null || home.length() == 0) {
+    if (home.isEmpty()) {
       errors.add(new ValidationError("home", "Home is required."));
     }
     
-    if (carouselURL == null || carouselURL.length() == 0) {
+    if (carouselURL.isEmpty()) {
       errors.add(new ValidationError("carouselURL", "Carousel URL is required."));
     }
     
-    if (bioURL == null || bioURL.length() == 0) {
+    if (bioURL.isEmpty()) {
       errors.add(new ValidationError("bioURL", "Bio URL is required."));
     }
     
-    if (bio == null || bio.length() == 0) {
+    if (bio.isEmpty()) {
       errors.add(new ValidationError("bio", "Bio field is required."));
     }
 
@@ -85,7 +109,7 @@ public class SurferFormData {
     }
     
     if (SurferDB.slugExists(slug)) {
-      errors.add(new ValidationError("slug", "Slug '" + slug +"' already in use, duplicate slugs not allowed."));
+      errors.add(new ValidationError("slug", "Slug '" + slug + "' already in use, duplicate slugs not allowed."));
     }
     
     if (!SurferTypes.isType(type)) {

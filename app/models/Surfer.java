@@ -37,7 +37,6 @@ public class Surfer {
     this.bio = bio;
     this.slug = slug;
     this.type = type;
-    System.out.println("1surfer slug set:"+slug+":");
   }
   /**
    * @return the name
@@ -134,7 +133,6 @@ public class Surfer {
    * @param slug the slug to set
    */
   public void setSlug(String slug) {
-    System.out.println("surfer slug set:"+slug+":");
     this.slug = slug;
   }
   
