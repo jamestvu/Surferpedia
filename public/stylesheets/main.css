@@ -20,48 +20,10 @@ body {
 }
 
 .carousel-1 {
-  background: url("../images/eddie.jpg");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   height: 400px;
-}
-
-.eddie {
-  background: url("../images/eddie.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 400px;
-  width: auto;
-}
-
-.carousel-2 {
-  background: url("../images/daize.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 400px;
-}
-
-.daize {
-  background: url("../images/daize.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 400px;
-  width: auto;
-}
-
-.carousel-3 {
-  background: url("../images/john.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 400px;
-}
-
-.john {
-  background: url("../images/john.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 400px;
-  width: auto;
 }
 
 .section-1 {
@@ -70,43 +32,6 @@ body {
   background-position: center;
   height: 200px;
   font-family: 'Open Sans', sans-serif;
-}
-
-.carousel-4 {
-   background: url("../images/maliamanuel.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 400px;
-}
-
-.malia {
-  background: url("../images/maliamanuel.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 400px;
-  width: auto;
-}
-
-.cjhobgood {
-  background: url("../images/cjhobgood.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 400px;
-}
-
-.slater {
-  background: url("../images/kellyslater.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 400px;
-  width: auto;
-}
-
-.carousel-5 {
-   background: url("../images/kellyslater.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 400px;
 }
 
 li {

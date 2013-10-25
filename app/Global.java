@@ -42,23 +42,13 @@ public class Global extends GlobalSettings {
         + "board at the age of six months, wearing a life vest on his father John's board; he was riding on his own "
         + "by the age of three.";
     
-        
-    SurferDB.addSurfer(new SurferFormData(
-        "Kelly Slater",
-        "Cocoa Beach, Florida",
-        "ASP World Tour Champion (11 times), Boost Mobile Pro (1st Place, 2007)",
-        "http://www.carmelmagazine.com/images/archive/fa08/kelly-slater-1.jpg",
-        "http://www.carmelmagazine.com/images/archive/fa08/kelly-slater-1.jpg",
-        kellyBio,
-        "kellyslater",
-        "Male"));
     
     SurferDB.addSurfer(new SurferFormData(
         "Daize Shayne",
         "Uklah, CA",
         "2004 World Longboard Champion, 1999 World Longboard Champion",
-        "http://www.carmelmagazine.com/images/archive/fa08/kelly-slater-1.jpg",
-        "http://www.carmelmagazine.com/images/archive/fa08/kelly-slater-1.jpg",
+        "http://www.cgweekly.com/archives/1/sabine/sabine/9DaizeShayne00010.jpg",
+        "http://userserve-ak.last.fm/serve/500/73287524/Daize+Shayne.jpg",
         daizeBio,
         "daizeshayne",
         "Female"));
@@ -74,6 +64,15 @@ public class Global extends GlobalSettings {
         "johnflorence",
         "Grom"));
     
+    SurferDB.addSurfer(new SurferFormData(
+        "Kelly Slater",
+        "Cocoa Beach, Florida",
+        "ASP World Tour Champion (11 times), Boost Mobile Pro (1st Place, 2007)",
+        "http://costaricasurfing.org/wp-content/uploads/2013/07/Kelly-Slater-1.jpg",
+        "http://www.athletepromotions.com/blog/wp-content/uploads/2013/08/kelly-slater.jpg",
+        kellyBio,
+        "kellyslater",
+        "Male"));
   }
 
 }
