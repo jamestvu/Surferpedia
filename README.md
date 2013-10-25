@@ -1,4 +1,4 @@
-![screenshot](https://raw.github.com/jamestvu/Surferpedia/master/doc/ss.png)
+![screenshot](https://raw.github.com/jamestvu/Surferpedia/dynamic/doc/ss.png)
 
 Overview
 --------
