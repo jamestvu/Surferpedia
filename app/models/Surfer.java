@@ -15,6 +15,7 @@ public class Surfer {
   private String bio;
   private String slug;
   private String type;
+  private boolean newlyCreated = true;
   
   /**
    * Constructor to create a surfer.
@@ -148,6 +149,18 @@ public class Surfer {
    */
   public void setType(String type) {
     this.type = type;
+  }
+  /**
+   * @return the newlyCreated
+   */
+  public boolean isNewlyCreated() {
+    return newlyCreated;
+  }
+  /**
+   * @param newlyCreated the newlyCreated to set
+   */
+  public void setNewlyCreated(boolean newlyCreated) {
+    this.newlyCreated = newlyCreated;
   }
   
 }

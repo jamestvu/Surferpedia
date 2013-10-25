@@ -30,12 +30,13 @@ public class SurferFormData {
   public String slug = "";
   /** The type. */
   public String type = "";
+  /** Checks if the slug was created or edited. */
+  public boolean newlyCreated = true;
   
   /**
    * Default Constructor.
    */
   public SurferFormData() {
-    
   }
   
   /**
@@ -59,7 +60,7 @@ public class SurferFormData {
     this.bio = bio;
     this.slug = slug;
     this.type = type;
-
+    
   }
   
   /**
@@ -108,7 +109,11 @@ public class SurferFormData {
       errors.add(new ValidationError("slug", "Slug field is required."));
     }
     
-    if (SurferDB.slugExists(slug)) {
+    if (!slug.matches("^[a-zA-Z0-9]*$")) {
+      errors.add(new ValidationError("slug", "Slug must be alphanumeric."));
+    }
+    
+    if (newlyCreated && SurferDB.slugExists(slug)) {
       errors.add(new ValidationError("slug", "Slug '" + slug + "' already in use, duplicate slugs not allowed."));
     }
     

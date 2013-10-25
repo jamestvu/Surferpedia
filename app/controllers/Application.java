@@ -32,7 +32,7 @@ public class Application extends Controller {
   public static Result newSurfer() {
     SurferFormData data = new SurferFormData();
     Form<SurferFormData> formData = Form.form(SurferFormData.class).fill(data);
-    return ok(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers()));
+    return ok(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers(), false));
     
   }
   
@@ -58,30 +58,35 @@ public class Application extends Controller {
   }
   
   /**
-   * Returns page1, a simple example of a second page to illustrate navigation.
+   * Returns the managed surfer page with the given slug.
    * @param slug The slug used to retrieve the surfer.
    * @return The manage surfer page.
    */
   public static Result manageSurfer(String slug) {
     SurferFormData data = new SurferFormData(SurferDB.getSurfer(slug));
+    data.newlyCreated = false;
     Form<SurferFormData> formData = Form.form(SurferFormData.class).fill(data);
-    return ok(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers()));
+    return ok(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers(), true));
   }
   
   /**
-   * Returns the index page.
+   * Returns the managed surfer page.
    * @return The manage surfer page.
    */
   public static Result postSurfer() {
     Form<SurferFormData> formData = Form.form(SurferFormData.class).bindFromRequest();
     
-    if (formData.hasErrors()) {
-      return badRequest(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers()));
+    //Unlocks the slug field if there is a slug related error, otherwise keep it locked
+    if (formData.hasErrors() && formData.errors().containsKey("slug")) {
+      return badRequest(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers(), false));
+    }
+    else if (formData.hasErrors()) {
+      return badRequest(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers(), true));
     }
     else {
       SurferFormData data = formData.get();
       SurferDB.addSurfer(data);
-      return ok(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers()));
+      return ok(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers(), true));
     }
     
   }
