@@ -2,6 +2,7 @@
 
 @Main(surfers) {
    <div class="container">
+
       <div class="row">
         <div class="col-md-4">
           <div class="well">
@@ -18,10 +19,31 @@
               <li><a href="@routes.Application.manageSurfer(surfer.getSlug())">Edit</a></li>
             </div>
             <div id="bar2">
-              <li><a href="@routes.Application.deleteSurfer(surfer.getSlug())">Delete</a></li>
+              <!-- Modal -->
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h3 class="modal-title">Really Delete Surfer?</h3>
+                    </div>
+                    <div class="modal-body">
+                      This cannot be undone.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      <a href="@routes.Application.deleteSurfer(surfer.getSlug())" class="btn btn-primary">Delete</a>
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->
+              
+              <li><a data-toggle="modal" href="#myModal">Delete</a></li>
+              
             </div>
           </div>
          </div>
       </div>
    </div>
 }
+<!-- @routes.Application.deleteSurfer(surfer.getSlug()) -->
