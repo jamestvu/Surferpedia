@@ -24,7 +24,7 @@ public class SurferDB {
     String slug = formData.slug;
     
     Surfer surfer = new Surfer(formData.name, formData.home, formData.awards, 
-          formData.carouselURL, formData.bioURL, formData.bio, slug, formData.type);
+          formData.carouselURL, formData.bioURL, formData.bio, slug, formData.type, formData.footStyle);
     surfers.put(slug, surfer);
     
     return surfer;

@@ -51,7 +51,8 @@ public class Global extends GlobalSettings {
         "http://userserve-ak.last.fm/serve/500/73287524/Daize+Shayne.jpg",
         daizeBio,
         "daizeshayne",
-        "Female"));
+        "Female",
+        "Regular"));
     
     SurferDB.addSurfer(new SurferFormData(
         "John Florence",
@@ -62,7 +63,8 @@ public class Global extends GlobalSettings {
         "http://media.outsideonline.com/images/john-john-florence_fe.jpg",
         johnBio,
         "johnflorence",
-        "Grom"));
+        "Grom",
+        "Regular"));
     
     SurferDB.addSurfer(new SurferFormData(
         "Kelly Slater",
@@ -72,7 +74,8 @@ public class Global extends GlobalSettings {
         "http://www.athletepromotions.com/blog/wp-content/uploads/2013/08/kelly-slater.jpg",
         kellyBio,
         "kellyslater",
-        "Male"));
+        "Male",
+        "Goofy"));
   }
 
 }

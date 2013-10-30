@@ -30,6 +30,8 @@ public class SurferFormData {
   public String slug = "";
   /** The type. */
   public String type = "";
+  /** The foostyle. */
+  public String footStyle = "";
   /** Checks if the slug was created or edited. */
   public boolean newlyCreated = true;
   
@@ -51,7 +53,7 @@ public class SurferFormData {
    * @param type The surfer type.
    */
   public SurferFormData(String name, String home, String awards, String carouselURL, String bioURL,
-      String bio, String slug, String type) {
+      String bio, String slug, String type, String footStyle) {
     this.name = name;
     this.home = home;
     this.awards = awards;
@@ -60,6 +62,7 @@ public class SurferFormData {
     this.bio = bio;
     this.slug = slug;
     this.type = type;
+    this.footStyle = footStyle;
     
   }
   
@@ -77,6 +80,7 @@ public class SurferFormData {
     this.bio = formData.getBio();
     this.slug = formData.getSlug();
     this.type = formData.getType();
+    this.footStyle = formData.getFootStyle();
   }
   /**
    * Checks that form fields are valid. Called by bindFormRequest().
@@ -91,6 +95,9 @@ public class SurferFormData {
     
     if (home.isEmpty()) {
       errors.add(new ValidationError("home", "Home is required."));
+    }
+    if (footStyle.isEmpty()) {
+      errors.add(new ValidationError("footStyle", "Foot Style is required."));
     }
     
     if (carouselURL.isEmpty()) {

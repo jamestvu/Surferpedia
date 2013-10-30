@@ -28,9 +28,10 @@ public class Surfer {
    * @param bio The narrative on the surfer.
    * @param slug The slug of the surfer.
    * @param type The type of the surfer.
+   * @param footStyle The foot style.
    */
   public Surfer(String name, String home, String awards, String carouselURL, String bioURL,
-      String bio, String slug, String type) {
+      String bio, String slug, String type, String footStyle) {
     this.name = name;
     this.home = home;
     this.awards = awards;
@@ -39,6 +40,7 @@ public class Surfer {
     this.bio = bio;
     this.slug = slug;
     this.type = type;
+    this.footStyle = footStyle;
   }
   /**
    * @return the name
@@ -162,6 +164,18 @@ public class Surfer {
    */
   public void setNewlyCreated(boolean newlyCreated) {
     this.newlyCreated = newlyCreated;
+  }
+  /**
+   * @return the footStyle
+   */
+  public String getFootStyle() {
+    return footStyle;
+  }
+  /**
+   * @param footStyle the footStyle to set
+   */
+  public void setFootStyle(String footStyle) {
+    this.footStyle = footStyle;
   }
   
 }
