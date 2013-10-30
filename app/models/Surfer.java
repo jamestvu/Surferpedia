@@ -15,6 +15,7 @@ public class Surfer {
   private String bio;
   private String slug;
   private String type;
+  private String footStyle;
   private boolean newlyCreated = true;
   
   /**
