@@ -51,6 +51,7 @@ public class SurferFormData {
    * @param bio The bio narrative.
    * @param slug The surfer slug.
    * @param type The surfer type.
+   * @param footStyle The foot style.
    */
   public SurferFormData(String name, String home, String awards, String carouselURL, String bioURL,
       String bio, String slug, String type, String footStyle) {
@@ -82,6 +83,7 @@ public class SurferFormData {
     this.type = formData.getType();
     this.footStyle = formData.getFootStyle();
   }
+  
   /**
    * Checks that form fields are valid. Called by bindFormRequest().
    * @return null if valid, a list of ValidationError if problem is found.
