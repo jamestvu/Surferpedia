@@ -1,13 +1,18 @@
 package controllers;
 
 import models.SurferDB;
+import models.UserInfo;
+import models.UserInfoDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
+import views.formdata.LoginFormData;
 import views.formdata.SurferFormData;
 import views.formdata.SurferTypes;
 import views.formdata.FootStyleTypes;
 import views.html.Index;
+import views.html.Login;
 import views.html.ManageSurfer;
 import views.html.ShowSurfer;
 
@@ -21,20 +26,25 @@ public class Application extends Controller {
    * Returns the home page. 
    * @return The resulting home page. 
    */
+  @Security.Authenticated(Secured.class)
   public static Result index() {
-    
-    return ok(Index.render(SurferDB.getSurfers()));
+    UserInfo userInfo = UserInfoDB.getUser(request().username());
+    Boolean isLoggedIn = (userInfo != null);
+    return ok(Index.render(SurferDB.getSurfers(), "Index", isLoggedIn, userInfo));
   }
   
   /**
    * Returns the manage surfer page.
    * @return The manage surfer page.
    */
+  @Security.Authenticated(Secured.class)
   public static Result newSurfer() {
+    UserInfo userInfo = UserInfoDB.getUser(request().username());
+    Boolean isLoggedIn = (userInfo != null);
     SurferFormData data = new SurferFormData();
     Form<SurferFormData> formData = Form.form(SurferFormData.class).fill(data);
     return ok(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers(), false, 
-        FootStyleTypes.getFootStyles()));
+        FootStyleTypes.getFootStyles(), "Manage Surfer", isLoggedIn, userInfo));
     
   }
   
@@ -43,8 +53,11 @@ public class Application extends Controller {
    * @param slug The slug used to retrieve the surfer.
    * @return The manage surfer page.
    */
+  @Security.Authenticated(Secured.class)
   public static Result getSurfer(String slug) {
-    return ok(ShowSurfer.render(SurferDB.getSurfer(slug), SurferDB.getSurfers()));
+    UserInfo userInfo = UserInfoDB.getUser(request().username());
+    Boolean isLoggedIn = (userInfo != null);
+    return ok(ShowSurfer.render(SurferDB.getSurfer(slug), SurferDB.getSurfers(), "Show Surfer", isLoggedIn, userInfo));
     
   }
   
@@ -53,9 +66,12 @@ public class Application extends Controller {
    * @param slug The slug used to retrieve the surfer.
    * @return The indexed surfer page.
    */
+  @Security.Authenticated(Secured.class)
   public static Result deleteSurfer(String slug) {
     SurferDB.deleteSurfer(slug);
-    return ok(Index.render(SurferDB.getSurfers()));
+    UserInfo userInfo = UserInfoDB.getUser(request().username());
+    Boolean isLoggedIn = (userInfo != null);
+    return ok(Index.render(SurferDB.getSurfers(), "Index", isLoggedIn, userInfo));
     
   }
   
@@ -64,36 +80,88 @@ public class Application extends Controller {
    * @param slug The slug used to retrieve the surfer.
    * @return The manage surfer page.
    */
+  @Security.Authenticated(Secured.class)
   public static Result manageSurfer(String slug) {
+    UserInfo userInfo = UserInfoDB.getUser(request().username());
+    Boolean isLoggedIn = (userInfo != null);
     SurferFormData data = new SurferFormData(SurferDB.getSurfer(slug));
     data.newlyCreated = false;
     Form<SurferFormData> formData = Form.form(SurferFormData.class).fill(data);
     return ok(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers(), true, 
-        FootStyleTypes.getFootStyles()));
+        FootStyleTypes.getFootStyles(), "Manage Surfer", isLoggedIn, userInfo));
   }
   
   /**
    * Returns the managed surfer page.
    * @return The manage surfer page.
    */
+  @Security.Authenticated(Secured.class)
   public static Result postSurfer() {
+    
+    UserInfo userInfo = UserInfoDB.getUser(request().username());
+    Boolean isLoggedIn = (userInfo != null);
+    
     Form<SurferFormData> formData = Form.form(SurferFormData.class).bindFromRequest();
     
     //Unlocks the slug field if there is a slug related error, otherwise keep it locked
     if (formData.hasErrors() && formData.errors().containsKey("slug")) {
       return badRequest(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers(), false, 
-          FootStyleTypes.getFootStyles()));
+          FootStyleTypes.getFootStyles(), "Manage Surfer", isLoggedIn, userInfo));
     }
     else if (formData.hasErrors()) {
       return badRequest(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers(), true, 
-          FootStyleTypes.getFootStyles()));
+          FootStyleTypes.getFootStyles(), "Manage Surfer", isLoggedIn, userInfo));
     }
     else {
       SurferFormData data = formData.get();
       SurferDB.addSurfer(data);
       return ok(ManageSurfer.render(formData, SurferTypes.getTypes(), SurferDB.getSurfers(), true, 
-          FootStyleTypes.getFootStyles()));
+          FootStyleTypes.getFootStyles(), "Manage Surfer", isLoggedIn, userInfo));
     }
     
+  }
+  
+  /**
+   * Provides the Login page (only to unauthenticated users). 
+   * @return The Login page. 
+   */
+  public static Result login() {
+    Form<LoginFormData> formData = Form.form(LoginFormData.class);
+    return ok(Login.render("Login", false, null, formData));
+  }
+
+  /**
+   * Processes a login form submission from an unauthenticated user. 
+   * First we bind the HTTP POST data to an instance of LoginFormData.
+   * The binding process will invoke the LoginFormData.validate() method.
+   * If errors are found, re-render the page, displaying the error data. 
+   * If errors not found, render the page with the good data. 
+   * @return The index page with the results of validation. 
+   */
+  public static Result postLogin() {
+
+    // Get the submitted form data from the request object, and run validation.
+    Form<LoginFormData> formData = Form.form(LoginFormData.class).bindFromRequest();
+
+    if (formData.hasErrors()) {
+      flash("error", "Login credentials not valid.");
+      return badRequest(Login.render("Login", false, null, formData));
+    }
+    else {
+      // email/password OK, so now we set the session variable and only go to authenticated pages.
+      session().clear();
+      session("email", formData.get().email);
+      return redirect(routes.Application.index());
+    }
+  }
+  
+  /**
+   * Logs out (only for authenticated users) and returns them to the Index page. 
+   * @return A redirect to the Index page. 
+   */
+  @Security.Authenticated(Secured.class)
+  public static Result logout() {
+    session().clear();
+    return redirect(routes.Application.index());
   }
 }

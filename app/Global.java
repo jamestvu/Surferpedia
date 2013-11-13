@@ -1,5 +1,7 @@
 
 import models.SurferDB;
+import models.UserInfo;
+import models.UserInfoDB;
 import play.Application;
 import play.GlobalSettings;
 import views.formdata.SurferFormData;
@@ -76,6 +78,8 @@ public class Global extends GlobalSettings {
         "kellyslater",
         "Male",
         "Goofy"));
+    
+    UserInfoDB.addUserInfo("Administrator", "admin@example.com", "password");
   }
 
 }
